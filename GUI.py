@@ -1,6 +1,5 @@
 from dash import Dash, html, dcc, Input, Output, State
 import dash_bootstrap_components as dbc
-from dash_bootstrap_templates import ThemeSwitchAIO
 import dash_daq as daq
 import dash
 
@@ -22,11 +21,19 @@ BUTTON_STYLE= {
 
 # Component layouts which will be injected into the webpage
 
-titlebar_Layout = dbc.Row([html.Img(src='assets/VASTSeal.png',style={'width':'80px','margin':'8px'}),
-                           html.H3("VAST Mobile Ground Station",style={'width':'50%', 'display':'flex', 'justify-items':'center','align-items':'center','padding-left':'0px'})
+# Top bar containing logo, name, and a few buttons
+titlebar_Layout = dbc.Row([dbc.Col(html.Img(src='assets/VASTSeal.png',style={'width':'60px','margin':'8px'}),width=1),
+                           dbc.Col(html.H3("VAST Mobile Ground Station",style={'margin-left':'12px'}),align='center',width=7),
+                           # Buttons serving extra functions, such as database setup and exit 
+                           dbc.Col(dbc.Row([
+                                           dbc.Button(html.I(className='fa-solid fa-gear',style={'font-size':'30px'}),style={'width':'60px','margin':'8px'}),
+                                           dbc.Button(html.I(className='fa-solid fa-right-from-bracket',style={'font-size':'30px'}),style={'width':'60px','margin':'8px'})
+                                           ],justify='right'),
+                                   align='center',width=4)
                           ],
-                           style={'background':'#304FFE'})
+                          style={'background':'#304FFE'})
 
+# Sidebar containing hyperlink buttons to switch between dashboard and map views
 sidebar_Layout = dbc.Row(dbc.Col([dbc.Button(html.I(className='fa-solid fa-th-list'),href='/',style=BUTTON_STYLE,className='me-1 mt-1 btn btn-info'), 
                           html.Br(), html.Br(), html.Br(),
                           dbc.Button(html.I(className='fa-solid fa-map-marked'),href='/map',style=BUTTON_STYLE,className='me-1 mt-1 btn btn-info')],

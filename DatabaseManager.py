@@ -1,4 +1,3 @@
-from datetime import datetime
 import psycopg
 
 DSN = 'dbname=SatComm user=vast password=A61C9fL4elJuMq8WUvoz'

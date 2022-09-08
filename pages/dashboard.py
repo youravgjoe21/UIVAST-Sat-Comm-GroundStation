@@ -1,10 +1,8 @@
 import math
-import random
 import dash
 from dash import Dash, html, dcc, Input, Output, State, callback
 import dash_bootstrap_components as dbc
 import datetime
-from dash.exceptions import PreventUpdate
 import globals
 
 dash.register_page(__name__, path='/')
@@ -45,7 +43,6 @@ layout = html.Div([html.Div([],id='dashboard'),dcc.Interval('update-interval', i
 
 def serveStatusLayout():
     '''Module status layout. Displays a list of modules and whether they're working or not on the left column'''
-    global statusIcon
 
     # Will get replaced by a function to retrieve data from another system
     modules = globals.rdInst.getModuleStatus()
