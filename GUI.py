@@ -26,7 +26,7 @@ titlebar_Layout = dbc.Row([dbc.Col(html.Img(src='assets/VASTSeal.png',style={'wi
                            dbc.Col(html.H3("VAST Mobile Ground Station",style={'margin-left':'12px'}),align='center',width=7),
                            # Buttons serving extra functions, such as database setup and exit 
                            dbc.Col(dbc.Row([
-                                           dbc.Button(html.I(className='fa-solid fa-gear',style={'font-size':'30px'}),style={'width':'60px','margin':'8px'}),
+                                           dbc.Button(html.I(className='fa-solid fa-gear',style={'font-size':'30px'}),href='/setup',style={'width':'60px','margin':'8px'}),
                                            dbc.Button(html.I(className='fa-solid fa-right-from-bracket',style={'font-size':'30px'}),style={'width':'60px','margin':'8px'})
                                            ],justify='right'),
                                    align='center',width=4)

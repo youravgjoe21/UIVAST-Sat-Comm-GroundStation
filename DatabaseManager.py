@@ -26,6 +26,7 @@ class DatabaseManager():
         '''Creates a new table with the defined layout. This allow us to create a separate table for each launch, meaning we don't have to split our data into launches later.'''
         with psycopg.connect(DSN) as conn:
             with conn.cursor() as cur:
+                # Create data table
                 cur.execute(f"""
                             CREATE TABLE {name} (
                                 timereceived timestamp PRIMARY KEY,
