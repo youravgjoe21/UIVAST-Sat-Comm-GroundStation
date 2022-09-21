@@ -22,7 +22,7 @@ class DatabaseManager():
             if not cur.fetchone()[0]:
                 self.createLaunchTable("test")
 
-    def createLaunchTable(self,name: str):
+    def createLaunchTable(self,name):
         '''Creates a new table with the defined layout. This allow us to create a separate table for each launch, meaning we don't have to split our data into launches later.'''
         with psycopg.connect(DSN) as conn:
             with conn.cursor() as cur:
@@ -37,9 +37,20 @@ class DatabaseManager():
                                 sensordata jsonb
                             )
                             """)
-
                 # Make the changes to the database persistent
                 conn.commit()
+
+        self.activeTable = name
+
+    def getTableNames():
+        names = []
+        with psycopg.connect(DSN) as conn:
+            with conn.cursor() as cur:
+                cur.execute("""SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'""")
+                for table in cur.fetchall():
+                    names.append(table)
+
+        print(names)
 
     def writeRow(self,timestamp, xcoord, ycoord, altitude, modulestatus, sensordata):
         '''Inserts a new entry into the database'''
