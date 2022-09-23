@@ -29,6 +29,8 @@ SENSOR_DATA_STYLE = {
                     }
 
 def serveLayout():
+    if not globals.isSetup:
+        return dcc.Location('location',pathname='/setup')
     return dbc.Row([
                     dbc.Col([dbc.Row(serveStatusLayout(),style={'padding-top':'12px','margin-left':'16px'}),
                              html.Br(),
@@ -55,6 +57,8 @@ def serveStatusLayout():
         # Module is online
         if modules[module] == True:
             status=html.Span("OK", className='me-1 badge bg-success')
+        elif modules[module] == 'Waiting on Status':
+            status=html.Span("Unknown", className='me-1 badge bg-primary')
         # Module is offline
         else:
             status=html.Span("OFFLINE", className='me-1 badge bg-danger')
@@ -68,11 +72,9 @@ def serveStatusLayout():
     # All modules ok
     if systemOk == True:
         statusClass = 'me-1 badge bg-success'
-        statusIcon = 'fa-solid fa-check-circle'
     # Something isn't ok
     else:
         statusClass = 'me-1 badge bg-danger'
-        statusIcon = 'fa-solid fa-exclamation-triangle'
 
     # Build the final layout before exiting
     finalLayout = [dbc.Col("System Status",className=statusClass, width=11, style={'font-size':'24px'})]
@@ -124,7 +126,7 @@ def serveLastUpdateLayout():
     # second
     lastUpdateStr += f"{int(lastUpdateDSec)}s"
 
-    return html.H6(f"Last update: {lastUpdateStr} ago")
+    return html.H6(f"{globals.db.activeTable}\tLast update: {lastUpdateStr} ago")
 
 def serveMapLayout():
     lat,long,alt = globals.rdInst.getGPSData()
@@ -144,10 +146,10 @@ def serveMapLayout():
                             dbc.Col(alt, style=SENSOR_DATA_STYLE, width=3)
                             ]),
                             html.Br(),
-                    dbc.Row([html.Img(src='assets/map-ex.png',style={'width':'380px'})])
+                    # dbc.Row([html.Img(src='assets/map-ex.png',style={'width':'380px'})])
                     ])
 
 @callback(Output('dashboard','children'),
-          Input('update-interval','n_intervals'))
+          Input('update-interval','n_intervals'),prevent_initial_call=True)
 def updatePage(_):
     return serveLayout()

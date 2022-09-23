@@ -10,6 +10,7 @@ This repository contains the code required to run VAST's Raspberry Pi based grou
 Run the command below to get the required dependencies.
 `pip install dash dash_bootstrap_components psycopg`
 Clone the repository into a folder of your choice.
+You will need an instance of PostgreSQL running on your system, installation instructions can be found on their site. Update the DSN in DatabaseManager with the login credentials of the database, or use the credentials already in there when setting up PostgreSQL.
 
 ## How to use
 Run `main.py` to start the program. You can access the web interface at [127.0.0.1:8050](127.0.0.1:8050)
