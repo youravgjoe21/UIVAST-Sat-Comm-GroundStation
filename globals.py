@@ -7,10 +7,10 @@ from DatabaseManager import DatabaseManager
 def init():
     global db # Global DatabaseManager instance
     db = DatabaseManager()
-    db.activeTable = 'test'
+    db.activeTable = 'Test Launch-2022-09-22'
     
     global rdInst
     rdInst = d()
 
     global isSetup # Responsible for determining if setup process has been run yet
-    isSetup = False
+    isSetup = True

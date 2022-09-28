@@ -14,13 +14,31 @@ class d():
     long = 0
     alt = 0
 
+    def __init__(self) -> None:
+        pass
+
     def generateData(self):
         while True:
             if globals.isSetup:
 
-                self.moduleStatus = {'Radio':       not math.floor(random.randint(0,10) / 10),
-                                     'Satellite':   not math.floor(random.randint(0,10) / 10),
-                                     'Power Board': not math.floor(random.randint(0,10) / 10)}
+                status = random.randint(1,3)
+
+                if status == 1:
+                    self.moduleStatus = {'Radio':       'online',
+                                         'Satellite':   'idle',
+                                         'Power Board': 'offline'}
+                elif status == 2:
+                    self.moduleStatus = {'Radio':       'idle',
+                                         'Satellite':   'offline',
+                                         'Power Board': 'online'}
+                elif status == 3:
+                    self.moduleStatus = {'Radio':       'offline',
+                                         'Satellite':   'online',
+                                         'Power Board': 'idle'}                
+                # self.moduleStatus = {'Radio':       not math.floor(random.randint(0,10) / 10),
+                #                      'Satellite':   not math.floor(random.randint(0,10) / 10),
+                #                      'Power Board': not math.floor(random.randint(0,10) / 10)}
+
                 self.sensorData = {'external-temp': random.randint(-100,70), 'internal-temp': random.randint(-20,60), 'pressure': random.randint(40,60)}
 
                 self.updateTime = datetime.now()
@@ -58,7 +76,6 @@ class d():
                      'value':self.moduleStatus['Power Board']
                     }]
                   }
-        
         return json.dumps(modJSON)
 
     def generateSensorJSON(self):

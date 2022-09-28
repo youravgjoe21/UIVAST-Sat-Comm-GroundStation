@@ -40,6 +40,7 @@ sidebar_Layout = dbc.Row(dbc.Col([dbc.Button(html.I(className='fa-solid fa-th-li
                          width=3,style={'padding':'0px','margin-left':'-60px','margin-top':'30px'}),
                         justify='center')
 
+
 ### ---------------- *** I N I T I A L I Z A T I O N *** ---------------- ###
 
 app = Dash(__name__, 
@@ -47,9 +48,9 @@ app = Dash(__name__,
            external_stylesheets=['assets/css/darkly-bootstrap.min.css', 'assets/css/all.css'], 
            meta_tags=[{'name': 'viewport','content': 'width=device-width, initial-scale=1.0, maximum-scale=1.2, minimum-scale=0.5,'}])
 
-app.layout = html.Div([titlebar_Layout,
-                       dbc.Row([dbc.Col(sidebar_Layout, width=2, align='center'),dbc.Col(dash.page_container,width=10,align='start')])])
-
+# app.layout = html.Div([titlebar_Layout,
+                      #  dbc.Row([dbc.Col(sidebar_Layout, width=2, align='center'),dbc.Col(dash.page_container,width=10,align='start')])])
+app.layout = html.Div(dash.page_container)
 
 def start():
   app.run(debug=True,host='0.0.0.0')

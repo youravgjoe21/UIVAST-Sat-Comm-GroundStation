@@ -3,7 +3,7 @@ import psycopg
 DSN = 'dbname=SatComm user=vast password=A61C9fL4elJuMq8WUvoz'
 
 class DatabaseManager():
-    activeTable = 'test'
+    activeTable = 'Test Launch-2022-09-22'
     
     def __init__(self):
         pass
