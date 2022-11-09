@@ -3,10 +3,15 @@ import dash_bootstrap_components as dbc
 import dash_daq as daq
 import dash
 
-### ---------------- *** S T Y L E S *** ---------------- ###
+# *************************************
+#   ___  _____ __   __ _     ___  ___ 
+#  / __||_   _|\ \ / /| |   | __|/ __|
+#  \__ \  | |   \ V / | |__ | _| \__ \
+#  |___/  |_|    |_|  |____||___||___/
+# 
+# *************************************
 
-# Defined styles for components. This creates static positions and paddings around them to enforce the desired layout.
-# Styles get injected into components
+# CSS styling applied to components
 
 BUTTON_STYLE= {
                 'padding':'20px',
@@ -17,9 +22,15 @@ BUTTON_STYLE= {
                 'font-size':'48px'
               }
 
-### ---------------- *** L A Y O U T S *** ---------------- ###
+# ****************************************
+#   _       _ __   __ ___   _   _  _____ 
+#  | |     /_\\ \ / // _ \ | | | ||_   _|
+#  | |__  / _ \\ V /| (_) || |_| |  | |  
+#  |____|/_/ \_\|_|  \___/  \___/   |_| 
+# 
+# ****************************************
 
-# Component layouts which will be injected into the webpage
+# Functions here generate parts of the layout, which are passed back to the main layout function
 
 # Top bar containing logo, name, and a few buttons
 titlebar_Layout = dbc.Row([dbc.Col(html.Img(src='assets/VASTSeal.png',style={'width':'60px','margin':'8px'}),width=1),
@@ -41,11 +52,17 @@ sidebar_Layout = dbc.Row(dbc.Col([dbc.Button(html.I(className='fa-solid fa-th-li
                         justify='center')
 
 
-### ---------------- *** I N I T I A L I Z A T I O N *** ---------------- ###
+# **********************************************************************************
+#   ___  _  _  ___  _____  ___    _    _     ___  ____   _  _____  ___  ___   _  _ 
+#  |_ _|| \| ||_ _||_   _||_ _|  /_\  | |   |_ _||_  /  /_\|_   _||_ _|/ _ \ | \| |
+#   | | | .` | | |   | |   | |  / _ \ | |__  | |  / /  / _ \ | |   | || (_) || .` |
+#  |___||_|\_||___|  |_|  |___|/_/ \_\|____||___|/___|/_/ \_\|_|  |___|\___/ |_|\_|
+# 
+# **********************************************************************************
 
 app = Dash(__name__, 
            use_pages=True, 
-           external_stylesheets=['assets/css/darkly-bootstrap.min.css', 'assets/css/all.css'], 
+           external_stylesheets=['assets/css/darkly-bootstrap.min.css', 'assets/css/all.css', 'assets/custom.css'], 
            meta_tags=[{'name': 'viewport','content': 'width=device-width, initial-scale=1.0, maximum-scale=1.2, minimum-scale=0.5,'}])
 
 # app.layout = html.Div([titlebar_Layout,

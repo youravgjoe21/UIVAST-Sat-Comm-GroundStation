@@ -33,6 +33,12 @@
 }*/
 
 
+/* LED Display Font */
+@font-face {
+  font-family: 'DSEG14';
+  src: url('assets/fonts/DSEG14-Classic/DSEG14Classic-Regular.woff2');
+}
+
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .container {
