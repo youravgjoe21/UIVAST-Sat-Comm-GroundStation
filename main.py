@@ -4,7 +4,7 @@ import globals
 
 globals.init()
 
-rdThread = Thread(target=globals.rdInst.generateData,args=())
+rbThread = Thread(target=globals.rbInst.receive(),args=())
 
 rdThread.start()
 GUI.start()

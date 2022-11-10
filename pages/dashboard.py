@@ -47,8 +47,8 @@ def serveStatusLayout():
     '''Module status layout. Displays a list of modules and whether they're working or not on the left column'''
 
     # Will get replaced by a function to retrieve data from another system
-    modules = globals.rdInst.getModuleStatus()
-
+    # modules = globals.rdInst.getModuleStatus()
+    modules = {'No modules :(':'Waiting on Status'}
     moduleStatus = [] # Dash element output list
     systemOk = True # Global system status. If one module goes down, this goes to false
 
@@ -84,52 +84,50 @@ def serveStatusLayout():
 
 def serveSensorDataLayout():
     '''Sensor data layout. Contains a list of sensors and their associated data, displayed on the left column.'''
-    sensorData = globals.rdInst.getSensorData()
-
     return html.Div([
                     html.H3("Sensor Data"),
                     dbc.Row([
                             dbc.Col("Payload temperature", style=TEXT_STYLE, width=8),
-                            dbc.Col(f"{sensorData['internal-temp']} C", style=SENSOR_DATA_STYLE, width=2)
+                            dbc.Col(f"{globals.rdInst.msg['temperatureI']} K", style=SENSOR_DATA_STYLE, width=2)
                             ]),
                     dbc.Row([
                             dbc.Col("Outside temperature", style=TEXT_STYLE, width=8),
-                            dbc.Col(f"{sensorData['external-temp']} C", style=SENSOR_DATA_STYLE, width=2)
+                            dbc.Col(f"{globals.rdInst.msg['temperatureE']} K", style=SENSOR_DATA_STYLE, width=2)
                             ]),
                     dbc.Row([
                             dbc.Col("Pressure", style=TEXT_STYLE, width=8),
-                            dbc.Col(f"{sensorData['pressure']} pa", style=SENSOR_DATA_STYLE, width=2)
+                            dbc.Col(f"NUL pa", style=SENSOR_DATA_STYLE, width=2)
                             ]),
                     ])
 
 def serveLastUpdateLayout():
     '''Calculates time between last packet received and the current time to display the time delta between them'''
-    lastUpdateTime = globals.rdInst.getUpdateTime()
-    lastUpdateDelta = datetime.datetime.now()-lastUpdateTime
-    lastUpdateDSec = lastUpdateDelta.total_seconds()
-    lastUpdateStr = ""
+    lastUpdateTime = globals.rdInst.msg['clock']
+    # lastUpdateDelta = datetime.datetime.now()-lastUpdateTime
+    # lastUpdateDSec = lastUpdateDelta.total_seconds()
+    # lastUpdateStr = ""
 
-    # Build output string
-    # day
-    if lastUpdateDSec > 86400:
-        lastUpdateStr += f"{math.floor(lastUpdateDSec/86400)}d "
-        # If the seconds aren't removed as you go, you end up with an absurd number of seconds at the end
-        lastUpdateDSec -= 86400 * math.floor(lastUpdateDSec/86400)
-    # hour
-    if lastUpdateDSec > 3600:
-        lastUpdateStr += f"{math.floor(lastUpdateDSec/3600)}h "
-        lastUpdateDSec -= 3600 * math.floor(lastUpdateDSec/3600)
-    # minute
-    if lastUpdateDSec > 60:
-        lastUpdateStr += f"{math.floor(lastUpdateDSec/60)}m "
-        lastUpdateDSec -= 60 * math.floor(lastUpdateDSec/60)
-    # second
-    lastUpdateStr += f"{int(lastUpdateDSec)}s"
+    # # Build output string
+    # # day
+    # if lastUpdateDSec > 86400:
+    #     lastUpdateStr += f"{math.floor(lastUpdateDSec/86400)}d "
+    #     # If the seconds aren't removed as you go, you end up with an absurd number of seconds at the end
+    #     lastUpdateDSec -= 86400 * math.floor(lastUpdateDSec/86400)
+    # # hour
+    # if lastUpdateDSec > 3600:
+    #     lastUpdateStr += f"{math.floor(lastUpdateDSec/3600)}h "
+    #     lastUpdateDSec -= 3600 * math.floor(lastUpdateDSec/3600)
+    # # minute
+    # if lastUpdateDSec > 60:
+    #     lastUpdateStr += f"{math.floor(lastUpdateDSec/60)}m "
+    #     lastUpdateDSec -= 60 * math.floor(lastUpdateDSec/60)
+    # # second
+    # lastUpdateStr += f"{int(lastUpdateDSec)}s"
 
-    return html.H6(f"{globals.db.activeTable}\tLast update: {lastUpdateStr} ago")
+    return html.H6(f"{globals.db.activeTable}\tLast update: {lastUpdateTime}, RSSI {globals.rbInst.msg['signalStrength']}")
 
 def serveMapLayout():
-    lat,long,alt = globals.rdInst.getGPSData()
+    lat,long,alt = globals.rdInst.msg['latitude'],globals.rdInst.msg['longitude'],globals.rdInst.msg['altitude']
     
     return html.Div([
                     html.Br(),
